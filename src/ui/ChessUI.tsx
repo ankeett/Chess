@@ -388,34 +388,39 @@ const restartGame = () => {
 
               </Card>
             </div>
+            
+            {
+              !isAI &&
+            
+              <div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Game Log</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription>
+                    
 
-            <div>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Game Log</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>
-                   
+                      <ScrollArea className="h-60 w-full rounded-md border">
+                        <div className="p-4">
+                          {logs.map((log) => (
+                            <>
+                              <div key={log} className="text-xs text-black dark:text-[#FFFFF0]">
+                                {log}
+                              </div>
+                              <Separator className="my-2" />
+                            </>
+                          ))}
+                        </div>
+                      </ScrollArea>
+                    </CardDescription>
+                  </CardContent>
 
-                    <ScrollArea className="h-60 w-full rounded-md border">
-                      <div className="p-4">
-                        {logs.map((log) => (
-                          <>
-                            <div key={log} className="text-xs text-black dark:text-[#FFFFF0]">
-                              {log}
-                            </div>
-                            <Separator className="my-2" />
-                          </>
-                        ))}
-                      </div>
-                    </ScrollArea>
-                  </CardDescription>
-                </CardContent>
-
-              </Card>
-              </div>
+                </Card>
+                </div>
+            }
             </div>
+                        
             
             {/* Center column */}
             <div>
@@ -429,7 +434,10 @@ const restartGame = () => {
               />
             </div>
             {/* Right column */}
+            
             <div className=' w-1/2 items-right h-96'>
+            {
+              !isAI && 
               <div className='flex flex-col gap-2'>
               <div>
               <Card>
@@ -499,13 +507,47 @@ const restartGame = () => {
             </form>
 
                 
-              </div>
-
             </div>
+
+}
+
+{
+  isAI &&
+  
+  <div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Game Log</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription>
+                    
+
+                      <ScrollArea className="h-60 w-full rounded-md border">
+                        <div className="p-4">
+                          {logs.map((log) => (
+                            <>
+                              <div key={log} className="text-xs text-black dark:text-[#FFFFF0]">
+                                {log}
+                              </div>
+                              <Separator className="my-2" />
+                            </>
+                          ))}
+                        </div>
+                      </ScrollArea>
+                    </CardDescription>
+                  </CardContent>
+
+                </Card>
+                </div>
+            }
             
+            </div>
         </div>
+              
       </div>
     </div>
+              
 
       );
       
