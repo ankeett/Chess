@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Chessboard from 'chessboardjsx';
 import io from 'socket.io-client';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -60,10 +60,14 @@ const ChessApp: React.FC = () => {
 
     const [texts, setTexts] = useState<any[]>([]);
 
-    const handleReceiveData = (data: any) => {
-      
-     
-    };
+    const scrollableDivRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      // Scroll to the bottom of the div when the component mounts or updates
+      if (scrollableDivRef.current) {
+        scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight;
+      }
+    }, []);
 
     useEffect(() => {
       if (ai == 1){
@@ -227,12 +231,6 @@ const ChessApp: React.FC = () => {
           setText((prevText) => [...prevText, data]); // Update the text state by spreading the previous text array and appending the new data
           console.log(text)
 
-          
-
-
-
-           
-
         });
 
 
@@ -304,6 +302,26 @@ const restartGame = () => {
 
       return (
         <div>
+          {
+            gameOver &&
+
+            <div className='flex flex-row gap-2'>
+              <Dialog open={open}>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Game Over</DialogTitle>
+                    <DialogDescription>
+                      The game has ended
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className='flex flex-row gap-2'>
+                    <Button onClick={() => navigate('/')}>Go to Lobby</Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+
+          }
           {
             !isAI && role && clientColor== 'black' && <div className='flex flex-row gap-2'>
               <Dialog open={open}>
@@ -449,8 +467,8 @@ const restartGame = () => {
                    
 
                     <div className="h-60 w-full max-w-60  rounded-md border">
-                        <ScrollArea className="h-full w-full rounded-md border">
-                      <div className=" flex flex-col gap-3 px-4">
+                        <ScrollArea className="h-full w-full rounded-md border overflow-y-auto" ref={scrollableDivRef} >
+                      <div className=" flex flex-col gap-3 px-4 "  >
                         {texts.map((t) => (
                           <>
                             <Message isOwnMessage={ t.name === username  || t.name === opponent} data={t} />
