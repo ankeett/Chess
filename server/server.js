@@ -8,10 +8,11 @@ const { v4: uuidv4 } = require('uuid');
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
-    cors: {
-        origin: "http://localhost:5173", // Assuming this is your frontend URL
-    }
+  cors: {
+      origin: ["http://localhost:5173", "https://thinknmove.netlify.app/"] // Assuming this is your frontend URL
+  }
 });
+
 const minimax = require('./ai.js');// Enable CORS for all routes
 const { text } = require('stream/consumers');
 app.use(cors());
