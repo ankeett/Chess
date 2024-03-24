@@ -100,7 +100,7 @@ const ChessApp: React.FC = () => {
 
     useEffect(() => {
         // Establish WebSocket connection when component mounts
-        const newSocket = io('http://localhost:3000'); // Replace with your server URL
+        const newSocket = io('https://chess-3.onrender.com'); // Replace with your server URL
         setSocket(newSocket);
 
        
